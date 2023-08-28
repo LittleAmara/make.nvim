@@ -1,6 +1,7 @@
 M = {}
 
 M.compile_command = function()
+  -- TODO add some sort of history
   -- Define the size of the floating window
   local width = 60
   local height = 1

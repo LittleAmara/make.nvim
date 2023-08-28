@@ -50,6 +50,7 @@ M.compile_command = function()
   -- Useful bindings
   vim.keymap.set("n", "<esc>", "<cmd>close!<cr>", { silent = true, buffer = bufnr })
   vim.keymap.set("n", "q", "<cmd>close!<cr>", { silent = true, buffer = bufnr })
+  vim.keymap.set("i", "<C-W>", "<C-S-W>", { silent = true, buffer = bufnr })
 end
 
 --- Sends a message to the term buffer used to display stdout and stderr.

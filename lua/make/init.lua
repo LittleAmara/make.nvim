@@ -94,15 +94,14 @@ M.run = function()
   -- Clear the qf list
   vim.fn.setqflist({}, "r")
 
-  vim.fn.jobstart(vim.opt.makeprg:get(), {
+  local chan_id = vim.fn.termopen(vim.opt.makeprg:get(), {
     on_exit = function(_, exit_code)
-      vim.api.nvim_chan_send(chan_id, ("[Process exited %d]"):format(exit_code))
-    end,
-    on_stdout = function(_, data)
-      channel_callback(chan_id, data, false)
-    end,
-    on_stderr = function(_, data)
-      channel_callback(chan_id, data, true)
+      if exit_code ~= 0 then
+        vim.fn.setqflist({}, "a", {
+          lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false),
+          title = "Compile errors",
+        })
+      end
     end,
   })
 end

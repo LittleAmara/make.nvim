@@ -59,9 +59,6 @@ M.run = function()
   local bufnr = vim.api.nvim_create_buf(true, true)
   assert(bufnr, "failed to create buffer")
 
-  -- Useful bindings
-  vim.keymap.set("n", "q", "<cmd>close!<cr>", { silent = true, buffer = bufnr })
-
   -- This is currently nvim-0.9.1 and we cannot create vertical windows via the nvim api, see
   -- https://github.com/neovim/neovim/issues/14315
   -- see `:h vertical`, `:h botright` and `:h sbuffer` if you do not understand this line.
@@ -85,6 +82,12 @@ M.run = function()
       end
     end,
   })
+
+  -- Useful bindings
+  vim.keymap.set("n", "q", "<cmd>close!<cr>", { silent = true, buffer = bufnr })
+  vim.keymap.set("n", "s", function()
+    vim.fn.jobstop(chan_id)
+  end)
 end
 
 return M

@@ -62,9 +62,7 @@ M.run = function()
   -- Useful bindings
   vim.keymap.set("n", "q", "<cmd>close!<cr>", { silent = true, buffer = bufnr })
 
-  local chan_id = vim.api.nvim_open_term(bufnr, {})
-
-  -- This is currently (nvim-0.9.1) and we cannot create vertical windows via the nvim api, see
+  -- This is currently nvim-0.9.1 and we cannot create vertical windows via the nvim api, see
   -- https://github.com/neovim/neovim/issues/14315
   -- see `:h vertical`, `:h botright` and `:h sbuffer` if you do not understand this line.
   vim.cmd("vertical botright sbuffer" .. tostring(bufnr))

@@ -54,23 +54,6 @@ M.compile_command = function()
   vim.keymap.set("i", "<C-W>", "<C-S-W>", { silent = true, buffer = bufnr })
 end
 
---- Sends a message to the term buffer used to display stdout and stderr.
----@param channel_id number
----@param data string[]
----@param is_stderr boolean
-local function channel_callback(channel_id, data, is_stderr)
-  for _, raw_line in ipairs(data) do
-    local line = raw_line ~= "" and raw_line .. "\r\n" or raw_line
-    vim.api.nvim_chan_send(channel_id, line)
-    if is_stderr then
-      vim.fn.setqflist({}, "a", {
-        lines = { raw_line },
-        title = "Compile errors",
-      })
-    end
-  end
-end
-
 M.run = function()
   -- TODO: manage only one buffer instead of creating one everytime
   local bufnr = vim.api.nvim_create_buf(true, true)
